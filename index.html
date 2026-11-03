@@ -3,30 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dashboard การบริการทางการแพทย์ในกิจกรรม | สสจ.กาญจนบุรี</title>
+<title>ข้อมูลหน่วยปฐมพยาบาล จังหวัดกาญจนบุรี</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root{color-scheme:dark;--ink:#e9f3f6;--sub:#a8c2cc;--card:#123039;--line:#21525e;--field:#0c2229;--bg1:#07222b;--bg2:#08303a;--bg3:#0a3a3a;--bg4:#0b2f4d;--bg5:#0a2540;
---none:#1f4f86;--mild:#17703f;--mod:#9a6b0d;--sev:#a82a45;--accent:#14b8a6;--accent-ink:#04201f;--th:#194552}
-[data-theme=blue]{--bg1:#071a2e;--bg2:#0a2745;--bg3:#0b3159;--bg4:#0a2a4a;--bg5:#08203a;--card:#102b4a;--line:#24507c;--field:#0a1f38;--th:#173c63;--accent:#4aa3ff;--accent-ink:#021424}
-[data-theme=green]{--bg1:#06200f;--bg2:#0a3017;--bg3:#0b3b20;--bg4:#0a2f1c;--bg5:#082414;--card:#11331f;--line:#26603c;--field:#0a2314;--th:#194a2d;--accent:#3ddc84;--accent-ink:#03180b}
+:root{color-scheme:light;--ink:#16323a;--sub:#4b6670;--card:#ffffffe6;--line:#c9dfe6;--field:#ffffff;--bg1:#ffeef2;--bg2:#fff6e0;--bg3:#e8f8ee;--bg4:#e6f2ff;--bg5:#f1eaff;
+--none:#1f4f86;--mild:#17703f;--mod:#9a6b0d;--sev:#a82a45;--accent:#2dd4bf;--accent-ink:#04201f;--th:#d9ecf0}
+[data-theme=blue]{--bg1:#e6f2ff;--bg2:#e2f5fb;--bg3:#e9f0ff;--bg4:#e3f3f7;--bg5:#eceaff;--line:#bcd3ea;--th:#d6e6f7;--accent:#7ab8ff}
+[data-theme=green]{--bg1:#e7f8ec;--bg2:#eefbe3;--bg3:#e2f7f1;--bg4:#e8f6f0;--bg5:#e5f5e9;--line:#bfdfca;--th:#d7efdf;--accent:#6ee7a0}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{font-family:'Sarabun','Noto Sans Thai',Tahoma,sans-serif;color:var(--ink);font-size:16px;line-height:1.5;min-height:100vh;
 background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4),var(--bg5));background-attachment:fixed;
 padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
 .wrap{max-width:1280px;margin:0 auto;padding:16px}
-header{background:var(--card);border-radius:20px;padding:18px 22px;border:1px solid var(--line);position:relative;overflow:hidden}
-header::before{content:"";position:absolute;inset:0 0 auto 0;height:8px;background:linear-gradient(90deg,#16a34a,#14b8a6,#0ea5e9,#2563eb)}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;justify-content:space-between;background:var(--card);border-radius:20px;padding:18px 22px;border:1px solid var(--line);position:relative;overflow:hidden}
+header::before{z-index:1;content:"";position:absolute;inset:0 0 auto 0;height:8px;background:linear-gradient(90deg,#fb9aac,#fdc88a,#f6e58a,#8fe3b0,#84cdf0,#b3a2f2)}
+header .hd{flex:1 1 380px}.art{flex:0 1 400px;max-width:100%;height:auto;filter:drop-shadow(0 6px 10px rgba(22,50,58,.18))}
 h1{margin:6px 0 2px;font-size:1.55rem;font-weight:700}
 .sub{color:var(--sub);font-size:.95rem}
 .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
 .pill{padding:5px 12px;border-radius:99px;background:var(--field);font-size:.88rem;border:1px solid var(--line)}
-.pill.ok{background:#17703f;border-color:#34d399}.pill.err{background:#a82a45;border-color:#fb7185}.pill.wait{background:#9a6b0d;border-color:#fbbf24}
+.pill.ok{background:#17703f;border-color:#17703f;color:#fff}.pill.err{background:#a82a45;border-color:#a82a45;color:#fff}.pill.wait{background:#9a6b0d;border-color:#9a6b0d;color:#fff}
 button,select,input{font:inherit;color:var(--ink);border-radius:12px;border:1px solid var(--line);background:var(--field);padding:7px 12px}
 button{cursor:pointer;font-weight:500}button:hover{background:var(--th)}
-:focus-visible{outline:3px solid #5eead4;outline-offset:2px}
+:focus-visible{outline:3px solid #1f4f86;outline-offset:2px}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 10px}
 .tabs button{border-radius:99px;padding:8px 18px}
 .tabs button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
@@ -61,8 +62,8 @@ tr.r{cursor:pointer}tr.r:hover td{background:var(--th)}
 </head>
 <body>
 <div class="wrap">
-<header>
-  <h1>Dashboard การบริการทางการแพทย์ในกิจกรรม</h1>
+<header><div class="hd">
+  <h1>ข้อมูลหน่วยปฐมพยาบาล จังหวัดกาญจนบุรี</h1>
   <div class="sub">สำนักงานสาธารณสุขจังหวัดกาญจนบุรี · ข้อมูลเชื่อมต่อ Google Sheet โดยตรง</div>
   <div class="bar">
     <span class="pill wait" id="st">กำลังโหลดข้อมูล…</span>
@@ -70,9 +71,47 @@ tr.r{cursor:pointer}tr.r:hover td{background:var(--th)}
     <span class="pill" id="cd">รีเฟรชใน - วินาที</span>
     <button id="rf">รีเฟรชทันที</button>
     <label class="note">ชุดสี
-      <select id="th"><option value="teal">เขียว-น้ำเงินเข้ม</option><option value="blue">น้ำเงินเข้ม</option><option value="green">เขียวเข้ม</option></select>
+      <select id="th"><option value="teal">รุ้งพาสเทลอ่อน</option><option value="blue">ฟ้าพาสเทล</option><option value="green">เขียวพาสเทล</option></select>
     </label>
-  </div>
+  </div></div>
+<svg class="art" viewBox="0 0 440 190" role="img" aria-label="ภาพประกอบหน่วยปฐมพยาบาล: กระเป๋าปฐมพยาบาลและรถพยาบาลใต้สายรุ้ง">
+<defs>
+<linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ade9a"/><stop offset="1" stop-color="#0f766e"/></linearGradient>
+<linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d5e3ee"/></linearGradient>
+<linearGradient id="gw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bfe6fb"/><stop offset="1" stop-color="#4a90c8"/></linearGradient>
+<linearGradient id="gh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8fa6"/><stop offset="1" stop-color="#d9304f"/></linearGradient>
+<linearGradient id="gr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fb7185"/><stop offset=".2" stop-color="#fdba74"/><stop offset=".4" stop-color="#f5d95c"/><stop offset=".6" stop-color="#4ade9a"/><stop offset=".8" stop-color="#38bdf8"/><stop offset="1" stop-color="#8b7cf0"/></linearGradient>
+<radialGradient id="gt" cx=".4" cy=".35"><stop offset="0" stop-color="#6b7b88"/><stop offset="1" stop-color="#1f2a33"/></radialGradient>
+<filter id="bl"><feGaussianBlur stdDeviation="3"/></filter>
+</defs>
+<g fill="none" stroke-width="9" stroke-linecap="round" opacity=".9">
+<path d="M40 172A150 150 0 0 1 340 172" stroke="#fb9aac"/><path d="M49 172A141 141 0 0 1 331 172" stroke="#fdba74"/>
+<path d="M58 172A132 132 0 0 1 322 172" stroke="#f5d95c"/><path d="M67 172A123 123 0 0 1 313 172" stroke="#6fdc9c"/>
+<path d="M76 172A114 114 0 0 1 304 172" stroke="#5fc4ee"/><path d="M85 172A105 105 0 0 1 295 172" stroke="#a798f2"/></g>
+<ellipse cx="190" cy="176" rx="170" ry="7" fill="#16323a" opacity=".22" filter="url(#bl)"/>
+<g>
+<path d="M62 100v-12a8 8 0 0 1 8-8h32a8 8 0 0 1 8 8v12" fill="none" stroke="#0b5a52" stroke-width="7"/>
+<rect x="30" y="100" width="110" height="68" rx="14" fill="url(#gk)"/>
+<rect x="30" y="100" width="110" height="24" rx="14" fill="#fff" opacity=".22"/>
+<rect x="30" y="136" width="110" height="3" fill="#0b5a52" opacity=".35"/>
+<rect x="68" y="113" width="34" height="12" rx="2" fill="#fff"/><rect x="79" y="102" width="12" height="34" rx="2" fill="#fff" transform="translate(0,5)"/>
+<rect x="76" y="148" width="18" height="6" rx="3" fill="#fff" opacity=".55"/>
+<circle cx="45" cy="150" r="3" fill="#d1fae5"/><circle cx="125" cy="150" r="3" fill="#d1fae5"/></g>
+<g transform="translate(-40,0)">
+<ellipse cx="290" cy="170" rx="95" ry="5" fill="#16323a" opacity=".25" filter="url(#bl)"/>
+<rect x="200" y="100" width="105" height="62" rx="8" fill="url(#gb)"/>
+<path d="M305 112h28q8 0 13 7l12 18q3 4 3 9v16h-56z" fill="url(#gb)"/>
+<path d="M312 120h20q4 0 7 4l8 12h-35z" fill="url(#gw)"/>
+<rect x="200" y="140" width="105" height="7" fill="url(#gr)"/><rect x="305" y="140" width="56" height="7" fill="url(#gr)"/>
+<rect x="246" y="122" width="12" height="6" fill="#2563eb"/><rect x="249" y="119" width="6" height="12" fill="#2563eb"/>
+<rect x="312" y="105" width="18" height="6" rx="3" fill="url(#gr)"/><rect x="204" y="104" width="97" height="5" rx="2" fill="#fff" opacity=".7"/>
+<g><circle cx="230" cy="164" r="13" fill="url(#gt)"/><circle cx="230" cy="164" r="5" fill="#d5e3ee"/>
+<circle cx="335" cy="164" r="13" fill="url(#gt)"/><circle cx="335" cy="164" r="5" fill="#d5e3ee"/></g></g>
+<path d="M190 82C166 62 172 40 190 52C208 40 214 62 190 82Z" fill="url(#gh)"/>
+<path d="M178 52C180 47 185 46 188 49" stroke="#fff" stroke-width="3" fill="none" opacity=".6" stroke-linecap="round"/>
+<path d="M120 66H165l7-13 10 28 9-34 8 19h60" fill="none" stroke="#1f4f86" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+<g fill="#fff" opacity=".9"><circle cx="30" cy="60" r="3"/><circle cx="350" cy="50" r="4"/><circle cx="322" cy="92" r="2.5"/></g>
+</svg>
 </header>
 
 <nav class="tabs" role="tablist">
@@ -150,8 +189,8 @@ const SNAPSHOT=`วันที่ / เวลา,กิจกรรม , สถ
 
 /* ===== CSV / PARSING ===== */
 const SEV=["ไม่มีผู้รับบริการ","อาการทั่วไป/เล็กน้อย","อาการปานกลาง","อาการรุนแรง"];
-const SEVCOL=["#5b9bff","#34d399","#fbbf24","#fb7185"];
-const PAL=["#34d399","#22d3ee","#38bdf8","#60a5fa","#2dd4bf","#4ade80","#818cf8","#5eead4"];
+const SEVCOL=["#6aa5f5","#5ed393","#f7c548","#f2788c"];
+const PAL=["#fb9aac","#fdba74","#f5d95c","#6fdc9c","#5fc4ee","#8f9cf5","#b58cf0","#4fd1c5"];
 const MON={"ม.ค.":0,"ก.พ.":1,"มี.ค.":2,"เม.ย.":3,"พ.ค.":4,"มิ.ย.":5,"ก.ค.":6,"ส.ค.":7,"ก.ย.":8,"ต.ค.":9,"พ.ย.":10,"ธ.ค.":11};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -232,7 +271,7 @@ function filtered(){
     if(q&&!(e.act+" "+e.place).toLowerCase().includes(q))return false;return true}).sort((x,y)=>y.ts-x.ts)}
 
 function mk(id,cfg){if(CH[id])CH[id].destroy();if(!window.Chart)return;
-  Chart.defaults.font.family="Sarabun,sans-serif";Chart.defaults.color="#e9f3f6";Chart.defaults.borderColor="rgba(255,255,255,.14)";
+  Chart.defaults.font.family="Sarabun,sans-serif";Chart.defaults.color="#16323a";Chart.defaults.borderColor="rgba(22,50,58,.12)";
   CH[id]=new Chart($(id),cfg)}
 const sum=(a,f)=>a.reduce((x,e)=>x+f(e),0);
 function tally(list,key){const m={};list.forEach(e=>e[key].forEach(x=>{const k=x.name;m[k]=(m[k]||0)+x.c}));return Object.entries(m).sort((a,b)=>b[1]-a[1])}
@@ -247,7 +286,7 @@ function render(){
   $("s0").textContent=sv[0];
   for(let i=1;i<4;i++){$("s"+i+"n").textContent=sv[i];$("s"+i+"d").textContent="ราย · "+pc(sv[i],P)}
 
-  mk("c_sev",{type:"doughnut",data:{labels:SEV.slice(1),datasets:[{data:sv.slice(1),backgroundColor:SEVCOL.slice(1),borderColor:"#123039",borderWidth:3}]},
+  mk("c_sev",{type:"doughnut",data:{labels:SEV.slice(1),datasets:[{data:sv.slice(1),backgroundColor:SEVCOL.slice(1),borderColor:"#ffffff",borderWidth:3}]},
     options:{maintainAspectRatio:false,cutout:"58%",plugins:{legend:{position:"bottom"}}}});
   const days=[...new Set(E.map(e=>e.key||"ไม่ระบุ"))].sort();
   mk("c_day",{type:"bar",data:{labels:days.map(d=>d.split("-").reverse().join("/")),datasets:[1,2,3].map(i=>({label:SEV[i],backgroundColor:SEVCOL[i],data:days.map(d=>sum(E.filter(e=>(e.key||"ไม่ระบุ")===d),e=>e.sv[i]))}))},
@@ -261,7 +300,7 @@ function render(){
     options:{indexAxis:"y",maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0}}}}});
   $("sevnote").textContent=sy.length?"":"ยังไม่มีข้อมูลอาการในช่วงที่เลือก";
 
-  mk("c_trt",{type:"doughnut",data:{labels:["ปฐมพยาบาลเบื้องต้น (ราย)","ส่งต่อ (ราย)","ไม่มีผู้รับบริการ (กิจกรรม)"],datasets:[{data:[fa,rf,sv[0]],backgroundColor:["#34d399","#38bdf8","#5b9bff"],borderColor:"#123039",borderWidth:3}]},
+  mk("c_trt",{type:"doughnut",data:{labels:["ปฐมพยาบาลเบื้องต้น (ราย)","ส่งต่อ (ราย)","ไม่มีผู้รับบริการ (กิจกรรม)"],datasets:[{data:[fa,rf,sv[0]],backgroundColor:["#34d399","#38bdf8","#5b9bff"],borderColor:"#ffffff",borderWidth:3}]},
     options:{maintainAspectRatio:false,cutout:"55%",plugins:{legend:{position:"bottom"}}}});
   const td=tally(E,"tr").slice(0,10);
   mk("c_trd",{type:"bar",data:{labels:td.map(x=>x[0]),datasets:[{data:td.map(x=>x[1]),backgroundColor:PAL}]},
