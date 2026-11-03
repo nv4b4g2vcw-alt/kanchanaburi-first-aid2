@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ข้อมูลหน่วยปฐมพยาบาล จังหวัดกาญจนบุรี</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{color-scheme:light;--ink:#16323a;--sub:#4b6670;--card:#ffffffe6;--line:#c9dfe6;--field:#ffffff;--bg1:#ffeef2;--bg2:#fff6e0;--bg3:#e8f8ee;--bg4:#e6f2ff;--bg5:#f1eaff;
+--none:#1f4f86;--mild:#17703f;--mod:#9a6b0d;--sev:#a82a45;--accent:#2dd4bf;--accent-ink:#04201f;--th:#d9ecf0}
+[data-theme=blue]{--bg1:#e6f2ff;--bg2:#e2f5fb;--bg3:#e9f0ff;--bg4:#e3f3f7;--bg5:#eceaff;--line:#bcd3ea;--th:#d6e6f7;--accent:#7ab8ff}
+[data-theme=green]{--bg1:#e7f8ec;--bg2:#eefbe3;--bg3:#e2f7f1;--bg4:#e8f6f0;--bg5:#e5f5e9;--line:#bfdfca;--th:#d7efdf;--accent:#6ee7a0}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:'Sarabun','Noto Sans Thai',Tahoma,sans-serif;color:var(--ink);font-size:16px;line-height:1.5;min-height:100vh;
+background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4),var(--bg5));background-attachment:fixed;
+padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:1280px;margin:0 auto;padding:16px}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;justify-content:space-between;background:var(--card);border-radius:20px;padding:18px 22px;border:1px solid var(--line);position:relative;overflow:hidden}
+header::before{z-index:1;content:"";position:absolute;inset:0 0 auto 0;height:8px;background:linear-gradient(90deg,#fb9aac,#fdc88a,#f6e58a,#8fe3b0,#84cdf0,#b3a2f2)}
+header .hd{flex:1 1 380px}.art{flex:0 1 400px;max-width:100%;height:auto;filter:drop-shadow(0 6px 10px rgba(22,50,58,.18))}
+h1{margin:6px 0 2px;font-size:1.55rem;font-weight:700}
+.sub{color:var(--sub);font-size:.95rem}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.pill{padding:5px 12px;border-radius:99px;background:var(--field);font-size:.88rem;border:1px solid var(--line)}
+.pill.ok{background:#17703f;border-color:#17703f;color:#fff}.pill.err{background:#a82a45;border-color:#a82a45;color:#fff}.pill.wait{background:#9a6b0d;border-color:#9a6b0d;color:#fff}
+button,select,input{font:inherit;color:var(--ink);border-radius:12px;border:1px solid var(--line);background:var(--field);padding:7px 12px}
+button{cursor:pointer;font-weight:500}button:hover{background:var(--th)}
+:focus-visible{outline:3px solid #1f4f86;outline-offset:2px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 10px}
+.tabs button{border-radius:99px;padding:8px 18px}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;background:var(--card);border:1px solid var(--line);padding:12px;border-radius:16px;margin-bottom:14px}
+.filters label{font-size:.82rem;color:var(--sub);display:block}
+.filters input,.filters select{width:100%}
+.grid{display:grid;gap:14px}
+.k4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.k2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.kpi{border-radius:18px;padding:16px 18px;border:1px solid var(--line);color:#fff}
+.kpi .n{font-size:2.4rem;font-weight:700;line-height:1.1}
+.kpi .l{font-weight:700}
+.kpi .d{font-size:.88rem;color:#e3f1f5}
+.card{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--line)}
+.card h2{font-size:1.1rem;margin:0 0 10px}
+.cv{position:relative;height:290px}
+.sec{display:none}.sec.on{display:block}
+.sec>*+*{margin-top:14px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th{background:var(--th);text-align:left;padding:9px 10px;position:sticky;top:0}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.r{cursor:pointer}tr.r:hover td{background:var(--th)}
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.82rem;font-weight:700;margin:1px 2px 1px 0}
+.chip{color:#fff}.c0{background:var(--none)}.c1{background:var(--mild)}.c2{background:var(--mod)}.c3{background:var(--sev)}.cr{background:#1d6fb8}.cf{background:#17703f}
+.dt td{background:var(--field);font-size:.9rem;white-space:pre-wrap}
+.empty{text-align:center;color:var(--sub);padding:28px}
+.note{font-size:.85rem;color:var(--sub)}
+@media(max-width:600px){.k2{grid-template-columns:1fr}.kpi .n{font-size:2rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="hd">
+  <h1>ข้อมูลหน่วยปฐมพยาบาล จังหวัดกาญจนบุรี</h1>
+  <div class="sub">สำนักงานสาธารณสุขจังหวัดกาญจนบุรี · ข้อมูลเชื่อมต่อ Google Sheet โดยตรง</div>
+  <div class="bar">
+    <span class="pill wait" id="st">กำลังโหลดข้อมูล…</span>
+    <span class="pill" id="upd">อัปเดตล่าสุด: -</span>
+    <span class="pill" id="cd">รีเฟรชใน - วินาที</span>
+    <button id="rf">รีเฟรชทันที</button>
+    <label class="note">ชุดสี
+      <select id="th"><option value="teal">รุ้งพาสเทลอ่อน</option><option value="blue">ฟ้าพาสเทล</option><option value="green">เขียวพาสเทล</option></select>
+    </label>
+  </div></div>
+<svg class="art" viewBox="0 0 440 190" role="img" aria-label="ภาพประกอบหน่วยปฐมพยาบาล: กระเป๋าปฐมพยาบาลและรถพยาบาลใต้สายรุ้ง">
+<defs>
+<linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ade9a"/><stop offset="1" stop-color="#0f766e"/></linearGradient>
+<linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d5e3ee"/></linearGradient>
+<linearGradient id="gw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bfe6fb"/><stop offset="1" stop-color="#4a90c8"/></linearGradient>
+<linearGradient id="gh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8fa6"/><stop offset="1" stop-color="#d9304f"/></linearGradient>
+<linearGradient id="gr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fb7185"/><stop offset=".2" stop-color="#fdba74"/><stop offset=".4" stop-color="#f5d95c"/><stop offset=".6" stop-color="#4ade9a"/><stop offset=".8" stop-color="#38bdf8"/><stop offset="1" stop-color="#8b7cf0"/></linearGradient>
+<radialGradient id="gt" cx=".4" cy=".35"><stop offset="0" stop-color="#6b7b88"/><stop offset="1" stop-color="#1f2a33"/></radialGradient>
+<filter id="bl"><feGaussianBlur stdDeviation="3"/></filter>
+</defs>
+<g fill="none" stroke-width="9" stroke-linecap="round" opacity=".9">
+<path d="M40 172A150 150 0 0 1 340 172" stroke="#fb9aac"/><path d="M49 172A141 141 0 0 1 331 172" stroke="#fdba74"/>
+<path d="M58 172A132 132 0 0 1 322 172" stroke="#f5d95c"/><path d="M67 172A123 123 0 0 1 313 172" stroke="#6fdc9c"/>
+<path d="M76 172A114 114 0 0 1 304 172" stroke="#5fc4ee"/><path d="M85 172A105 105 0 0 1 295 172" stroke="#a798f2"/></g>
+<ellipse cx="190" cy="176" rx="170" ry="7" fill="#16323a" opacity=".22" filter="url(#bl)"/>
+<g>
+<path d="M62 100v-12a8 8 0 0 1 8-8h32a8 8 0 0 1 8 8v12" fill="none" stroke="#0b5a52" stroke-width="7"/>
+<rect x="30" y="100" width="110" height="68" rx="14" fill="url(#gk)"/>
+<rect x="30" y="100" width="110" height="24" rx="14" fill="#fff" opacity=".22"/>
+<rect x="30" y="136" width="110" height="3" fill="#0b5a52" opacity=".35"/>
+<rect x="68" y="113" width="34" height="12" rx="2" fill="#fff"/><rect x="79" y="102" width="12" height="34" rx="2" fill="#fff" transform="translate(0,5)"/>
+<rect x="76" y="148" width="18" height="6" rx="3" fill="#fff" opacity=".55"/>
+<circle cx="45" cy="150" r="3" fill="#d1fae5"/><circle cx="125" cy="150" r="3" fill="#d1fae5"/></g>
+<g transform="translate(-40,0)">
+<ellipse cx="290" cy="170" rx="95" ry="5" fill="#16323a" opacity=".25" filter="url(#bl)"/>
+<rect x="200" y="100" width="105" height="62" rx="8" fill="url(#gb)"/>
+<path d="M305 112h28q8 0 13 7l12 18q3 4 3 9v16h-56z" fill="url(#gb)"/>
+<path d="M312 120h20q4 0 7 4l8 12h-35z" fill="url(#gw)"/>
+<rect x="200" y="140" width="105" height="7" fill="url(#gr)"/><rect x="305" y="140" width="56" height="7" fill="url(#gr)"/>
+<rect x="246" y="122" width="12" height="6" fill="#2563eb"/><rect x="249" y="119" width="6" height="12" fill="#2563eb"/>
+<rect x="312" y="105" width="18" height="6" rx="3" fill="url(#gr)"/><rect x="204" y="104" width="97" height="5" rx="2" fill="#fff" opacity=".7"/>
+<g><circle cx="230" cy="164" r="13" fill="url(#gt)"/><circle cx="230" cy="164" r="5" fill="#d5e3ee"/>
+<circle cx="335" cy="164" r="13" fill="url(#gt)"/><circle cx="335" cy="164" r="5" fill="#d5e3ee"/></g></g>
+<path d="M190 82C166 62 172 40 190 52C208 40 214 62 190 82Z" fill="url(#gh)"/>
+<path d="M178 52C180 47 185 46 188 49" stroke="#fff" stroke-width="3" fill="none" opacity=".6" stroke-linecap="round"/>
+<path d="M120 66H165l7-13 10 28 9-34 8 19h60" fill="none" stroke="#1f4f86" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+<g fill="#fff" opacity=".9"><circle cx="30" cy="60" r="3"/><circle cx="350" cy="50" r="4"/><circle cx="322" cy="92" r="2.5"/></g>
+</svg>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="on" data-t="s1">ภาพรวม</button>
+  <button data-t="s2">อาการ</button>
+  <button data-t="s3">การรักษา</button>
+  <button data-t="s4">รายการกิจกรรม</button>
+</nav>
+
+<div class="filters">
+  <div><label for="fa">ตั้งแต่วันที่</label><input type="date" id="fa"></div>
+  <div><label for="fb">ถึงวันที่</label><input type="date" id="fb"></div>
+  <div><label for="fs">ระดับอาการ</label><select id="fs"><option value="">ทั้งหมด</option><option value="0">ไม่มีผู้รับบริการ</option><option value="1">อาการทั่วไป/เล็กน้อย</option><option value="2">อาการปานกลาง</option><option value="3">อาการรุนแรง</option></select></div>
+  <div><label for="ft">การรักษา</label><select id="ft"><option value="">ทั้งหมด</option><option value="none">ไม่มีผู้รับบริการ</option><option value="fa">ปฐมพยาบาลเบื้องต้น</option><option value="ref">ส่งต่อ</option></select></div>
+  <div><label for="fq">ค้นหากิจกรรม/สถานที่</label><input type="search" id="fq" placeholder="พิมพ์คำค้น"></div>
+  <div style="align-self:end"><button id="fc" style="width:100%">ล้างตัวกรอง</button></div>
+</div>
+
+<section class="sec on" id="s1">
+  <div class="grid k4">
+    <div class="kpi" style="background:#1b5a8a"><div class="l">กิจกรรมทั้งหมด</div><div class="n" id="k_ev">0</div><div class="d" id="k_ev_d"></div></div>
+    <div class="kpi" style="background:#0f6b7a"><div class="l">ผู้ป่วยทั้งหมด (ราย)</div><div class="n" id="k_pt">0</div><div class="d" id="k_pt_d"></div></div>
+    <div class="kpi" style="background:#1f4f86"><div class="l">ส่งต่อ (ราย)</div><div class="n" id="k_rf">0</div><div class="d" id="k_rf_d"></div></div>
+    <div class="kpi" style="background:#17703f"><div class="l">ปฐมพยาบาลเบื้องต้น (ราย)</div><div class="n" id="k_fa">0</div><div class="d">รักษา ณ จุดบริการ</div></div>
+  </div>
+  <div class="grid k4">
+    <div class="kpi" style="background:var(--none)"><div class="l">ไม่มีผู้รับบริการ</div><div class="n" id="s0">0</div><div class="d">จำนวนกิจกรรม · ปฐมพยาบาลเบื้องต้น (เตรียมความพร้อม)</div></div>
+    <div class="kpi" style="background:var(--mild)"><div class="l">อาการทั่วไป/เล็กน้อย</div><div class="n" id="s1n">0</div><div class="d" id="s1d">ราย</div></div>
+    <div class="kpi" style="background:var(--mod)"><div class="l">อาการปานกลาง</div><div class="n" id="s2n">0</div><div class="d" id="s2d">ราย</div></div>
+    <div class="kpi" style="background:var(--sev)"><div class="l">อาการรุนแรง</div><div class="n" id="s3n">0</div><div class="d" id="s3d">ราย</div></div>
+  </div>
+  <div class="grid k2">
+    <div class="card"><h2>สัดส่วนผู้ป่วยตามระดับอาการ</h2><div class="cv"><canvas id="c_sev"></canvas></div></div>
+    <div class="card"><h2>จำนวนผู้ป่วยรายวัน (แยกระดับอาการ)</h2><div class="cv"><canvas id="c_day"></canvas></div></div>
+  </div>
+</section>
+
+<section class="sec" id="s2">
+  <div class="grid k2">
+    <div class="card"><h2>อาการที่พบบ่อย (ราย)</h2><div class="cv" style="height:360px"><canvas id="c_sym"></canvas></div></div>
+    <div class="card"><h2>ผู้ป่วยแยกตามกิจกรรม (10 อันดับ)</h2><div class="cv" style="height:360px"><canvas id="c_act"></canvas></div></div>
+  </div>
+  <p class="note" id="sevnote"></p>
+</section>
+
+<section class="sec" id="s3">
+  <div class="grid k2">
+    <div class="card"><h2>การรักษา/การดูแล</h2><div class="cv"><canvas id="c_trt"></canvas></div></div>
+    <div class="card"><h2>รายละเอียดการปฐมพยาบาล/การรักษา (ราย)</h2><div class="cv"><canvas id="c_trd"></canvas></div></div>
+  </div>
+  <div class="card"><h2>ผู้ป่วยที่ส่งต่อ</h2><div class="tw" id="reflist"></div></div>
+</section>
+
+<section class="sec" id="s4">
+  <div class="card tw"><table>
+    <thead><tr><th>วัน-เวลา</th><th>กิจกรรม</th><th>ผู้ป่วย</th><th>ระดับอาการ</th><th>การรักษา</th><th>สถานะ</th></tr></thead>
+    <tbody id="tb"></tbody></table></div>
+  <p class="note">คลิกแถวเพื่อดูรายละเอียด (สถานที่ อาการ ปัญหา/อุปสรรค หมายเหตุ ผู้ลงข้อมูล)</p>
+</section>
+
+<p class="note">หมายเหตุวิธีจัดระดับอาการ: หาก Sheet มีคอลัมน์ “ระดับความรุนแรง” ระบบจะใช้ค่าจาก Sheet โดยตรง · หากไม่มี ระบบจัดระดับอัตโนมัติจากข้อความอาการ/หมายเหตุ (คำสำคัญแก้ไขได้ในส่วน CONFIG ของโค้ด) และถือว่าผู้ป่วยที่ส่งต่ออย่างน้อยอยู่ระดับปานกลาง</p>
+</div>
+
+<script>
+/* ===== CONFIG ===== */
+const CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vSsySTC4_7l7nMCpKx9_cLoiPv-4MX1suvLbpuTIS752-Rt_bU9L-4Xr-GiBiRB_5qKvyNqc-LyShIo/pub?gid=396787758&single=true&output=csv";
+const REFRESH_SEC=30;                       // ดึงข้อมูลซ้ำอัตโนมัติ (30–60 วินาที)
+const SEVERE_RE=/หมดสติ|ไม่รู้สึกตัว|หยุดหายใจ|cpr|หัวใจหยุด|หัวใจวาย|stemi|\bmi\b|ชัก|stroke|เจ็บหน้าอก|ช็อก|shock|เลือดออกมาก|กระดูกหัก|วิกฤต|เสียชีวิต/i;
+const MOD_RE=/เป็นลม|syncope|หายใจลำบาก|หอบ|น้ำตาลต่ำ|ความดันสูง|ความดันต่ำ|แผลลึก|เฝือก|น้ำเกลือ|\biv\b|ออกซิเจน|เจ็บแน่น|อาเจียน/i;
+const REFER_RE=/refer|ส่งต่อ|นำส่ง|ส่ง\s?รพ/i;
+const SNAPSHOT=`วันที่ / เวลา,กิจกรรม , สถานที่,ผู้ปฏิบัติงาน,,,,,สถานะ,ผู้ป่วย,,,ปัญหา / อุปสรรคที่พบ,หมายเหตุ / พิมพ์รายละเอียดเพิ่มเติม,ข้อมูลผู้ลงข้อมูล และหน่วยงาน,,
+,,,แพทย์,พยาบาล,ผู้ช่วยเหลือคนไข้,จนท.มูลนิธิ,พขร,,จำนวน,อาการ / การปฐมพยาบาล, การปฐมพยาบาล,,,ชื่อผู้ลงข้อมูล ,ตำแหน่ง ,หน่วยงาน
+29 ต.ค. 69 / 09.00 น,การขอรับทุนการศึกษา มูลนิธิคุณพุ่ม ปีการศึกษา 2569 จำนวน 130 ทุน ให้กับศูนย์การศึกษาพิเศษ ประจำจังหวัดกาญจนบุรี,ศูนย์การศึกษาพิเศษ ประจำจังหวัดกาญจนบุรี ต.บ้านเหนือ อ.เมืองฯ,0,2,0,0,1,ดำเนินงานแล้ว,0,ไม่มีผู้รับบริการ,ไม่มีผู้รับบริการ,หนังสือส่งกระชั้นชิด,,สุพิชชา,พยาบาลวิชาชีพ,สสจ
+1 พ.ย. 69 / 05.00 น,เดิน วิ่ง ปั่น ป้องกันอัมพาต ครั้งที่ 12,จุด start-finish (ศาลากลางจังหวัดกาญจนบุรี),3,8,0,10,4,ดำเนินงานแล้ว,2,ตะคริว 1 และ อื่นๆ 1,นั่งพัก 1 และ Refer 1,,"เคส ญ ไทย 43 ปี ชาปลายมือปลายเท้า 2 ข้างหลังวิ่ง นำส่ง รพ.พหลฯ แพทย์ dx.syncope ผลเลือด v/s EKG ปกติ ให้ iv + นอนพักสังเกตอาการ กลับบ้านแล้ว",สุพิชชา,พยาบาลวิชาชีพ,สสจ`;
+
+/* ===== CSV / PARSING ===== */
+const SEV=["ไม่มีผู้รับบริการ","อาการทั่วไป/เล็กน้อย","อาการปานกลาง","อาการรุนแรง"];
+const SEVCOL=["#6aa5f5","#5ed393","#f7c548","#f2788c"];
+const PAL=["#fb9aac","#fdba74","#f5d95c","#6fdc9c","#5fc4ee","#8f9cf5","#b58cf0","#4fd1c5"];
+const MON={"ม.ค.":0,"ก.พ.":1,"มี.ค.":2,"เม.ย.":3,"พ.ค.":4,"มิ.ย.":5,"ก.ค.":6,"ส.ค.":7,"ก.ย.":8,"ต.ค.":9,"พ.ย.":10,"ธ.ค.":11};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function parseCSV(t){const R=[];let r=[],c="",q=false;
+  for(let i=0;i<t.length;i++){const ch=t[i];
+    if(q){if(ch=='"'){if(t[i+1]=='"'){c+='"';i++}else q=false}else c+=ch}
+    else if(ch=='"')q=true;else if(ch==","){r.push(c);c=""}
+    else if(ch=="\n"||ch=="\r"){if(ch=="\r"&&t[i+1]=="\n")i++;r.push(c);R.push(r);r=[];c=""}
+    else c+=ch}
+  if(c!==""||r.length){r.push(c);R.push(r)}return R}
+
+function parseDate(s){const m=String(s).match(/(\d{1,2})\s*([ก-ฮ.]+)\s*(\d{2,4})(?:\s*\/?\s*(\d{1,2})[.:](\d{2}))?/);
+  if(!m||!(m[2] in MON))return{key:"",ts:0};
+  let y=+m[3];if(y<100)y+=2500;y-=543;
+  const d=new Date(y,MON[m[2]],+m[1],+(m[4]||0),+(m[5]||0));
+  const p=n=>String(n).padStart(2,"0");
+  return{key:`${y}-${p(d.getMonth()+1)}-${p(d.getDate())}`,ts:d.getTime()}}
+
+function items(text,n){
+  const out=[];String(text||"").split(/\s*(?:และ|,|;|\/|\n|\+)\s*/).forEach(tok=>{
+    tok=tok.trim();if(!tok||/^ไม่มีผู้รับบริการ$/.test(tok))return;
+    const m=tok.match(/^(.*?)\s*(\d+)\s*(?:ราย|คน)?$/);
+    out.push(m&&m[1]?{name:m[1].trim(),c:+m[2]}:{name:tok,c:null})});
+  const un=out.filter(x=>x.c===null);
+  un.forEach(x=>x.c=out.length===1?n:1);return out}
+
+function build(rows){
+  const h1=rows[0]||[],h2=rows[1]||[];
+  const sevIdx=[...h1,...h2].findIndex(x=>/ความรุนแรง/.test(x));
+  const sevCol=sevIdx<0?-1:(h1.findIndex(x=>/ความรุนแรง/.test(x))>=0?h1.findIndex(x=>/ความรุนแรง/.test(x)):h2.findIndex(x=>/ความรุนแรง/.test(x)));
+  return rows.slice(2).filter(r=>r[0]&&r[0].trim()).map(r=>{
+    const n=parseInt(r[9])||0,d=parseDate(r[0]);
+    const sy=items(r[10],n),tr=items(r[11],n);
+    const refN=tr.filter(x=>REFER_RE.test(x.name)).reduce((a,x)=>a+x.c,0);
+    const notes=r[13]||"";
+    let sv=[0,0,0,0];
+    if(n===0){sv[0]=1}
+    else if(sevCol>=0&&/[0-3ก-๙]/.test(r[sevCol]||"")){
+      const t=r[sevCol];const k=/รุนแรง/.test(t)?3:/ปานกลาง/.test(t)?2:1;sv[k]=n}
+    else{
+      let left=n;
+      sy.forEach(x=>{const t=x.name;const k=SEVERE_RE.test(t)?3:MOD_RE.test(t)?2:1;const a=Math.min(x.c,left);sv[k]+=a;left-=a});
+      sv[1]+=left;
+      let ref=Math.min(refN,n);
+      const bump=(f,t,k)=>{const a=Math.min(sv[f],k);sv[f]-=a;sv[t]+=a;return k-a};
+      const hard=SEVERE_RE.test(notes+" "+(r[10]||""));
+      if(hard){ref=bump(2,3,ref);ref=bump(1,3,ref)}
+      else{let need=Math.max(0,ref-sv[2]-sv[3]);bump(1,2,need)}}
+    return{ts:d.ts,key:d.key,when:r[0].trim(),act:(r[1]||"").trim(),place:(r[2]||"").trim(),status:(r[8]||"").trim(),
+      n,sv,refN:Math.min(refN,n),fa:Math.max(n-Math.min(refN,n),0),sy,tr,symTxt:(r[10]||"").trim(),trTxt:(r[11]||"").trim(),
+      prob:(r[12]||"").trim(),notes:notes.trim(),who:[r[14],r[15],r[16]].map(x=>(x||"").trim()).filter(Boolean).join(" · ")}})}
+
+/* ===== STATE / FETCH ===== */
+let ALL=[],left=REFRESH_SEC,busy=false,CH={};
+async function load(){
+  if(busy)return;busy=true;$("st").className="pill wait";$("st").textContent="กำลังดึงข้อมูล…";
+  try{
+    const u=CSV_URL+(CSV_URL.includes("?")?"&":"?")+"_="+Date.now();
+    const res=await fetch(u,{cache:"no-store"});if(!res.ok)throw new Error(res.status);
+    ALL=build(parseCSV(await res.text()));
+    $("st").className="pill ok";$("st").textContent="เชื่อมต่อ Google Sheet แล้ว";
+    $("upd").textContent="อัปเดตล่าสุด: "+new Date().toLocaleTimeString("th-TH")+" น.";
+  }catch(e){
+    if(!ALL.length){ALL=build(parseCSV(SNAPSHOT));$("st").textContent="เชื่อมต่อไม่ได้ · แสดงข้อมูลตัวอย่างล่าสุดที่บันทึกไว้"}
+    else $("st").textContent="เชื่อมต่อไม่ได้ · แสดงข้อมูลล่าสุดเดิม (จะลองใหม่อัตโนมัติ)";
+    $("st").className="pill err"}
+  busy=false;left=REFRESH_SEC;render()}
+setInterval(()=>{left--;if(left<=0)load();$("cd").textContent="รีเฟรชใน "+Math.max(left,0)+" วินาที"},1000);
+
+/* ===== FILTER + RENDER ===== */
+function filtered(){
+  const a=$("fa").value,b=$("fb").value,s=$("fs").value,t=$("ft").value,q=$("fq").value.trim().toLowerCase();
+  return ALL.filter(e=>{
+    if(a&&e.key&&e.key<a)return false;if(b&&e.key&&e.key>b)return false;
+    if(s!==""&&!(+s===0?e.n===0:e.sv[+s]>0))return false;
+    if(t==="none"&&e.n!==0)return false;if(t==="fa"&&e.fa<=0)return false;if(t==="ref"&&e.refN<=0)return false;
+    if(q&&!(e.act+" "+e.place).toLowerCase().includes(q))return false;return true}).sort((x,y)=>y.ts-x.ts)}
+
+function mk(id,cfg){if(CH[id])CH[id].destroy();if(!window.Chart)return;
+  Chart.defaults.font.family="Sarabun,sans-serif";Chart.defaults.color="#16323a";Chart.defaults.borderColor="rgba(22,50,58,.12)";
+  CH[id]=new Chart($(id),cfg)}
+const sum=(a,f)=>a.reduce((x,e)=>x+f(e),0);
+function tally(list,key){const m={};list.forEach(e=>e[key].forEach(x=>{const k=x.name;m[k]=(m[k]||0)+x.c}));return Object.entries(m).sort((a,b)=>b[1]-a[1])}
+
+function render(){
+  const E=filtered(),P=sum(E,e=>e.n),sv=[0,1,2,3].map(i=>i?sum(E,e=>e.sv[i]):E.filter(e=>e.n===0).length);
+  const rf=sum(E,e=>e.refN),fa=sum(E,e=>e.fa);
+  const pc=(v,t)=>t?Math.round(v*100/t)+"%":"0%";
+  $("k_ev").textContent=E.length;$("k_ev_d").textContent="มีผู้รับบริการ "+E.filter(e=>e.n>0).length+" · ไม่มี "+sv[0];
+  $("k_pt").textContent=P;$("k_pt_d").textContent="เฉลี่ย "+(E.length?(P/E.length).toFixed(1):0)+" ราย/กิจกรรม";
+  $("k_rf").textContent=rf;$("k_rf_d").textContent="คิดเป็น "+pc(rf,P)+" ของผู้ป่วย";$("k_fa").textContent=fa;
+  $("s0").textContent=sv[0];
+  for(let i=1;i<4;i++){$("s"+i+"n").textContent=sv[i];$("s"+i+"d").textContent="ราย · "+pc(sv[i],P)}
+
+  mk("c_sev",{type:"doughnut",data:{labels:SEV.slice(1),datasets:[{data:sv.slice(1),backgroundColor:SEVCOL.slice(1),borderColor:"#ffffff",borderWidth:3}]},
+    options:{maintainAspectRatio:false,cutout:"58%",plugins:{legend:{position:"bottom"}}}});
+  const days=[...new Set(E.map(e=>e.key||"ไม่ระบุ"))].sort();
+  mk("c_day",{type:"bar",data:{labels:days.map(d=>d.split("-").reverse().join("/")),datasets:[1,2,3].map(i=>({label:SEV[i],backgroundColor:SEVCOL[i],data:days.map(d=>sum(E.filter(e=>(e.key||"ไม่ระบุ")===d),e=>e.sv[i]))}))},
+    options:{maintainAspectRatio:false,scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true,ticks:{precision:0}}},plugins:{legend:{position:"bottom"}}}});
+
+  const sy=tally(E,"sy").slice(0,10);
+  mk("c_sym",{type:"bar",data:{labels:sy.map(x=>x[0]),datasets:[{data:sy.map(x=>x[1]),backgroundColor:PAL}]},
+    options:{indexAxis:"y",maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0}}}}});
+  const ac=E.filter(e=>e.n>0).sort((a,b)=>b.n-a.n).slice(0,10);
+  mk("c_act",{type:"bar",data:{labels:ac.map(e=>e.act.slice(0,34)+(e.act.length>34?"…":"")),datasets:[{data:ac.map(e=>e.n),backgroundColor:"#38bdf8"}]},
+    options:{indexAxis:"y",maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0}}}}});
+  $("sevnote").textContent=sy.length?"":"ยังไม่มีข้อมูลอาการในช่วงที่เลือก";
+
+  mk("c_trt",{type:"doughnut",data:{labels:["ปฐมพยาบาลเบื้องต้น (ราย)","ส่งต่อ (ราย)","ไม่มีผู้รับบริการ (กิจกรรม)"],datasets:[{data:[fa,rf,sv[0]],backgroundColor:["#34d399","#38bdf8","#5b9bff"],borderColor:"#ffffff",borderWidth:3}]},
+    options:{maintainAspectRatio:false,cutout:"55%",plugins:{legend:{position:"bottom"}}}});
+  const td=tally(E,"tr").slice(0,10);
+  mk("c_trd",{type:"bar",data:{labels:td.map(x=>x[0]),datasets:[{data:td.map(x=>x[1]),backgroundColor:PAL}]},
+    options:{indexAxis:"y",maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0}}}}});
+  const R=E.filter(e=>e.refN>0);
+  $("reflist").innerHTML=R.length?"<table><thead><tr><th>วัน-เวลา</th><th>กิจกรรม</th><th>ส่งต่อ (ราย)</th><th>รายละเอียด</th></tr></thead><tbody>"+
+    R.map(e=>`<tr><td>${esc(e.when)}</td><td>${esc(e.act)}</td><td><span class="chip cr">${e.refN}</span></td><td style="white-space:pre-wrap">${esc(e.notes||e.trTxt)}</td></tr>`).join("")+"</tbody></table>":'<div class="empty">ไม่มีผู้ป่วยส่งต่อในช่วงที่เลือก</div>';
+
+  $("tb").innerHTML=E.length?E.map((e,i)=>{
+    const chips=e.n===0?'<span class="chip c0">ไม่มีผู้รับบริการ</span>':[1,2,3].filter(k=>e.sv[k]).map(k=>`<span class="chip c${k}">${SEV[k]} ${e.sv[k]}</span>`).join("");
+    const trc=e.n===0?'<span class="chip cf">ปฐมพยาบาลเบื้องต้น (ไม่มีผู้รับบริการ)</span>':(e.fa?`<span class="chip cf">ปฐมพยาบาล ${e.fa}</span>`:"")+(e.refN?`<span class="chip cr">ส่งต่อ ${e.refN}</span>`:"");
+    return `<tr class="r" data-i="${i}"><td>${esc(e.when)}</td><td>${esc(e.act)}</td><td><b>${e.n}</b></td><td>${chips}</td><td>${trc}</td><td>${esc(e.status)}</td></tr>
+    <tr class="dt" id="d${i}" hidden><td colspan="6"><b>สถานที่:</b> ${esc(e.place)}\n<b>อาการ:</b> ${esc(e.symTxt)}   <b>การรักษา:</b> ${esc(e.trTxt)}\n<b>ปัญหา/อุปสรรค:</b> ${esc(e.prob||"-")}\n<b>หมายเหตุ:</b> ${esc(e.notes||"-")}\n<b>ผู้ลงข้อมูล:</b> ${esc(e.who||"-")}</td></tr>`}).join(""):'<tr><td colspan="6" class="empty">ไม่พบข้อมูลตามตัวกรอง</td></tr>'}
+
+/* ===== UI ===== */
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".sec").forEach(s=>s.classList.toggle("on",s.id===b.dataset.t));
+  Object.values(CH).forEach(c=>c.resize())});
+$("tb").onclick=e=>{const r=e.target.closest("tr.r");if(r){const d=$("d"+r.dataset.i);d.hidden=!d.hidden}};
+["fa","fb","fs","ft","fq"].forEach(id=>$(id).addEventListener("input",render));
+$("fc").onclick=()=>{["fa","fb","fs","ft","fq"].forEach(id=>$(id).value="");render()};
+$("rf").onclick=load;
+$("th").onchange=e=>document.body.dataset.theme=e.target.value;
+load();
+</script>
+</body>
+</html>
